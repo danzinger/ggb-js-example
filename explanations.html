@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>JS&hearts;GeoGebra</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">JS&hearts;GeoGebra</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                  <span class="navbar-toggler-icon"></span>
+                                </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Function Quiz</a>
+                </li>
+                </li>
+                <a class="nav-link" href="./random-stuff.html">Random Stuff</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="explanations.html">Explanations</a>
+            </ul>
+        </div>
+    </nav>
+
+    <div style="height:20px;"></div>
+    <main role="main" class="container">
+        <h3>Introduction</h3>
+        <h5>GeoGebra Script and limitations</h5>
+        <P>GeoGebra offers powerful ways to interact with its API via its own scripting language "GeoGebra Script". Many great learning materials were made using this technique. When things get a little more complex, however, the built-in editor lacks basic
+            development tools like syntax highlighting, autocompletion, linting and basic debugging helpers.</p>
+        <p>The scripting language also lacks basic features like loops and conditionals or they are hard to implement.</p>
+        <h5>GeoGebra and JavaScript</h5>
+        <p>It is also possible to create more complex worksheets by using JavaScript to interact with the API. When written in the editor provided by GeoGebra, many of the above mentioned problems occur as well.</p>
+        <p>But it is also possible to communicate with the API using JavaScript when GeoGebra apps embed in an ordinary HTML page. This offers many interesting possibilities.</p>
+        <ul>
+            <li>First and foremost, it is possible to write the logic in a professional editor that provides the features that the built-in editor lacks. This greatly simplifies the development of resources.</li>
+            <li>Secondly, many learning resources that require user input, lack basic input validation. This is hard to achieve, when developing within the app itself. When using the approach presented here, all user inputs can be done within the html and
+                can easily be validated via JavaScript.
+                <!-- <ul>
+                    <li><a href="https://www.geogebra.org/m/vFfTuP7r">Here</a>, for example, you may just enter "f(x)" in the input field to get a successful result. This is because GeoGebra then uses the value assigned to f(x) as the input, which is of course
+                        the correct solution.</li>
+                    <li><a href="https://www.geogebra.org/m/NFFFScq4">Here</a> you may just enter "f'(x)" in the input field to get a successful result.</li>
+                </ul> -->
+                Very often, if the applet is not used EXACTLY as intended by its creator, its functionality breaks. Depending on the context (Think of exams in GeoGebra), this might be a problem. For this, a more robust approach is needed.
+
+            </li>
+            <li>Last but not least this technique offers powerful ways of interaction between the DOM and GeoGebra. The DOM can be manipulated based on what is happening in the applet. Input fields, buttons and other DOM-Elements can be made visible only
+                when they are needed. Because JavaScript is used to communicate with the Api many things get possible. We can communicate with databases to save results, or communicate with other apes like Moodle, or other things. Of course, JavaScript
+                frameworks can be used for simplified DOM manipulation or extended features within JavaScript itself.</li>
+        </ul>
+    </main>
+    <!-- /.container -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"><a href="mailto:mail@matthiasdanzinger.eu">Matthias Danzinger</a></span>
+        </div>
+    </footer>
+    <script>
+        includeHTML();
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

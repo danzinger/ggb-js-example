@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script type="text/javascript" src="./js/deployggb.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <script type="text/javascript" src="./js/function-quiz.js"></script>
+
+
+    <title>JS&hearts;GeoGebra</title>
+ 
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">JS&hearts;GeoGebra</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Function Quiz</a>
+                </li>
+                </li>
+                <a class="nav-link" href="./random-stuff.html">Random Stuff</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="explanations.html">Explanations</a>
+            </ul>
+        </div>
+    </nav>
+    <div style="height:20px;"></div>
+    <div class="container">
+        <div class="row">
+            <h3>Function Quiz Implementation
+                <span tabindex="0" data-trigger="focus" style="cursor:pointer;" id="popover-title" data-toggle="popover" title="Welcome to Function Quiz" data-content="Click on the Button to generate a function. The function is then displayed in the GeoGebra window. The correct solution is displayed in LaTeX format, obtained via the GGB API. Click the button again to create another function.">
+                <i class="fas fa-info-circle"></i>
+            </span>
+            </h3>
+            
+        </div>
+        <div class="row">
+            <form>
+                <input class="btn btn-primary" value="Draw Random Function" onclick="drawRandomFunction()" type="button">
+            </form>
+        </div>
+        <div class="row">
+            <div style="height:20px"></div>
+            <span id="latex" style="margin-top:10px;margin-bottom:10px;position:absolute"></span>
+        </div>
+        <br>
+        <div id="checkform" class="row" style="display:none">
+            <form action="" onsubmit="checkRandomFunction(func.value);func.value='';return false;">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">f(x) = </span>
+                    </div>
+                    <input type="text" name="func" class="form-control" placeholder="Enter answer" aria-describedby="basic-addon1">
+                    <button class="btn btn-primary" type="submit">Check</button>&nbsp;
+                    <span tabindex="0" data-trigger="focus" style="cursor:pointer;padding-top:4px;" id="popover-check" data-toggle="popover" title="Check if solution is correct" data-content="The user input is validated as follows: In principal it must exist and start with a number. It may also start with x or ( or - or + but must not start with ++ or -- or +- or -+. The solution is checked via the GeoGebra API, so things like (x^3/x^2)*3+3-1 and 3x+2 and 2+x*3 are equivalent. A modal lets the user know, if the solution was correct. Anything is possible from this point on. The results can be counted, written in a database and saved to a user account, sent to other APIs (Moodle,...) or anything else.">
+                            <i class="fas fa-info-circle fa-2x"></i>
+                        </span>
+                </div>
+            </form>
+        </div>
+        <div style="height:20px;"></div>
+        <div class="container-fluid">
+            <div id="applet_container"></div>
+        </div>
+        <div class="row">
+                This example is based on&nbsp;<a href='https://www.geogebra.org/m/vFfTuP7r'>this applet</a>
+        </div>
+    </div>
+
+
+    <!-- correctModal -->
+    <div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Your answer was...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h1 style="color:green;">CORRECT :-)</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Great!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- falseModal -->
+    <div class="modal fade" id="falseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Your answer was...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h1 style="color:red;">WRONG :-(</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /.container -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"><a href="mailto:mail@matthiasdanzinger.eu">Matthias Danzinger</a></span>
+        </div>
+    </footer>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('#popover-title').popover({
+                container: 'body',
+                trigger: 'focus'
+            })
+        })
+        $(function() {
+            $('#popover-check').popover({
+                container: 'body',
+                trigger: 'focus'
+            })
+        })
+    </script>
+</body>
+
+</html>

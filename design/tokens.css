@@ -1,0 +1,246 @@
+/* =========================================================================
+   MD DESIGN TOKENS — single source of truth
+   Ing. MMag. Matthias Danzinger · Wien
+   Layer 1 (primitive) → Layer 2 (semantic) → Layer 3 (component)
+   Do not use primitive tokens directly in components. Use semantic tokens.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   LAYER 1 — PRIMITIVES
+   Raw values. Never referenced by a component rule.
+   ------------------------------------------------------------------------- */
+:root {
+  /* --- Ink ramp: warm neutral, hue ≈ 40°, very low chroma ---------------- */
+  --md-ink-900: #1c1b19; /* deepest ink; night surfaces, max-contrast display */
+  --md-ink-800: #2c2c2c; /* BRAND INK — primary text, logo dark half         */
+  --md-ink-700: #3e3b36;
+  --md-ink-600: #55514a;
+  --md-ink-500: #6f6b65; /* BRAND QUIET GREY — metadata (4.74:1 on paper)    */
+  --md-ink-400: #8c877e; /* decorative / large text only (3.20:1)            */
+  --md-ink-300: #b8b3ab; /* BRAND HAIRLINE — rules                           */
+  --md-ink-200: #d9d4cb;
+  --md-ink-100: #e9e5de; /* BRAND FAINT TINT — panel fills                   */
+  --md-ink-050: #f5f2ec; /* BRAND PAPER — page ground                        */
+  --md-ink-000: #ffffff; /* physical paper / reversed applications           */
+
+  /* --- Bronze ramp ------------------------------------------------------- */
+  --md-bronze-800: #4e3d28;
+  --md-bronze-700: #6b5336; /* accent TEXT on paper (6.45:1)                 */
+  --md-bronze-600: #856843; /* accent LABELS on paper (4.63:1)               */
+  --md-bronze-500: #a5845e; /* BRAND BRONZE — rules & graphics only (3.10:1) */
+  --md-bronze-400: #bfa383; /* accent text on night surfaces (7.43:1)        */
+  --md-bronze-350: #cbae85; /* accent text on night surfaces (8.40:1)        */
+  --md-bronze-300: #d8c5ac;
+  --md-bronze-200: #ebdfcd;
+  --md-bronze-100: #f4ece0;
+
+  /* --- Night surfaces (optional dark rendering) -------------------------- */
+  --md-night-900: #131210;
+  --md-night-800: #191814; /* night page ground                              */
+  --md-night-700: #211f1a; /* night raised panel                             */
+  --md-night-600: #2a2721;
+  --md-night-line: #35322b;
+  --md-night-text: #efebe2;
+  --md-night-quiet: #a9a399;
+
+  /* --- Type families ----------------------------------------------------- */
+  --md-family-serif: "MD Serif", "Source Serif 4", "Source Serif Pro", Georgia,
+    "Times New Roman", serif;
+  --md-family-sans: "MD Sans", "Source Sans 3", "Source Sans Pro", system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+  --md-family-mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* --- Type scale (perfect-fourth-ish, fluid; 16px base) ----------------- */
+  --md-size-3xs: 0.6875rem; /* 11px — folio, micro metadata        */
+  --md-size-2xs: 0.75rem; /*   12px — labels, kickers, captions   */
+  --md-size-xs: 0.8125rem; /*  13px — table cells, footnotes       */
+  --md-size-sm: 0.9375rem; /*  15px — secondary body               */
+  --md-size-base: 1.0625rem; /* 17px — body copy                   */
+  --md-size-md: clamp(1.125rem, 0.4vw + 1.03rem, 1.25rem); /* lede small     */
+  --md-size-lg: clamp(1.25rem, 0.9vw + 1.05rem, 1.5rem); /* h3 / lede        */
+  --md-size-xl: clamp(1.5rem, 1.6vw + 1.13rem, 2rem); /* h2                  */
+  --md-size-2xl: clamp(2rem, 3.2vw + 1.25rem, 3rem); /* h1 (article)         */
+  --md-size-3xl: clamp(2.5rem, 6vw + 1rem, 5.25rem); /* page title           */
+  /* THINK. TRAIN. BUILD. — the cap only binds above about 1500 px, so every
+     laptop, tablet and phone renders exactly as before; a large display gets
+     the presence the three words are meant to have. */
+  --md-size-display: clamp(3.25rem, 10.4vw, 12rem);
+
+  /* --- Line heights ------------------------------------------------------ */
+  --md-leading-display: 0.87;
+  --md-leading-tight: 1.06;
+  --md-leading-snug: 1.28;
+  --md-leading-normal: 1.5;
+  --md-leading-copy: 1.62; /* long-form German body copy */
+  --md-leading-loose: 1.75;
+
+  /* --- Letter spacing ---------------------------------------------------- */
+  --md-tracking-display: -0.055em;
+  --md-tracking-tight: -0.028em;
+  --md-tracking-normal: 0;
+  --md-tracking-label: 0.12em;
+  --md-tracking-caps: 0.16em; /* the identity's signature caps tracking */
+  --md-tracking-wide: 0.2em;
+
+  /* --- Weights (variable axes 300–700) ---------------------------------- */
+  --md-weight-light: 300;
+  --md-weight-regular: 400;
+  --md-weight-medium: 500;
+  --md-weight-semibold: 600;
+  --md-weight-bold: 700;
+
+  /* --- Spacing scale (4px base, spacious/editorial bias) ----------------- */
+  --md-space-3xs: 0.25rem; /*  4px */
+  --md-space-2xs: 0.5rem; /*   8px */
+  --md-space-xs: 0.75rem; /*  12px */
+  --md-space-sm: 1rem; /*     16px */
+  --md-space-md: 1.5rem; /*   24px */
+  --md-space-lg: 2rem; /*     32px */
+  --md-space-xl: 3rem; /*     48px */
+  --md-space-2xl: 4rem; /*    64px */
+  --md-space-3xl: 6rem; /*    96px */
+  --md-space-4xl: 9rem; /*   144px */
+
+  /* --- Measure (line length) -------------------------------------------- */
+  --md-measure-tight: 34rem; /* 55–60 characters — callouts, notes   */
+  --md-measure: 38rem; /*       65–72 characters — body copy         */
+  --md-measure-wide: 46rem; /*  lede, pull statements                */
+
+  /* --- Layout ------------------------------------------------------------ */
+  --md-shell: 71.25rem; /* 1140px — outer content shell     */
+  --md-shell-narrow: 51rem; /* 816px — article shell         */
+  --md-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --md-radius: 0; /* the system is square. Corners are not rounded. */
+
+  /* --- Rules ------------------------------------------------------------- */
+  --md-rule-hair: 1px;
+  --md-rule-signature: 2px; /* the bronze→grey signature rule */
+  --md-rule-heavy: 3px;
+
+  /* --- Motion ------------------------------------------------------------ */
+  --md-ease-out: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --md-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --md-dur-instant: 90ms;
+  --md-dur-fast: 180ms;
+  --md-dur-base: 260ms;
+  --md-dur-slow: 520ms;
+  --md-dur-arrive: 700ms;
+
+  /* --- Elevation ---------------------------------------------------------
+     The system has no drop shadows. Depth is expressed by tint and rule.
+     A single shadow token exists only for transient overlays.            */
+  --md-shadow-overlay: 0 18px 48px -18px rgba(28, 27, 25, 0.28);
+}
+
+/* -------------------------------------------------------------------------
+   LAYER 2 — SEMANTIC (light / "Papier")
+   These are the ONLY colour tokens a component may reference.
+   ------------------------------------------------------------------------- */
+:root {
+  --bg: var(--md-ink-050);
+  --bg-raised: var(--md-ink-000);
+  --bg-sunken: #ede9e1;
+  --bg-tint: var(--md-ink-100);
+  --bg-accent-tint: var(--md-bronze-100);
+  --bg-inverse: var(--md-ink-900);
+
+  --text: var(--md-ink-800);
+  --text-strong: var(--md-ink-900);
+  --text-quiet: var(--md-ink-500);
+  /* Quiet text on a tinted panel. The tint is darker than the page ground,
+     so the quiet grey loses contrast against it (4.22:1 — below AA) and has
+     to step one down the ramp. Any quiet copy inside a --bg-tint surface
+     uses this role, never --text-quiet.                                   */
+  --text-quiet-tinted: var(--md-ink-600);
+  --text-faint: var(--md-ink-400);
+  --text-inverse: var(--md-ink-050);
+  --text-on-accent: var(--md-ink-050);
+
+  --accent: var(--md-bronze-500); /* graphics, rules, marks — NOT text */
+  --accent-text: var(--md-bronze-700); /* links, accent copy           */
+  --accent-label: var(--md-bronze-600); /* kickers, small caps labels  */
+  --accent-solid: var(--md-bronze-700); /* filled surfaces             */
+
+  --line: rgba(44, 44, 44, 0.13);
+  --line-strong: rgba(44, 44, 44, 0.26);
+  --line-accent: rgba(165, 132, 94, 0.55);
+
+  --focus: var(--md-bronze-700);
+  --selection-bg: var(--md-bronze-200);
+  --selection-text: var(--md-ink-900);
+
+  color-scheme: light;
+}
+
+/* -------------------------------------------------------------------------
+   LAYER 2b — SEMANTIC (dark / "Nacht")
+   Same roles, re-pointed. Never define a colour only inside this block.
+   ------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--md-night-800);
+    --bg-raised: var(--md-night-700);
+    --bg-sunken: var(--md-night-900);
+    --bg-tint: var(--md-night-600);
+    --bg-accent-tint: rgba(165, 132, 94, 0.1);
+    --bg-inverse: var(--md-ink-050);
+
+    --text: var(--md-night-text);
+    --text-strong: #fbf8f2;
+    --text-quiet: var(--md-night-quiet);
+    /* Night needs no compensation: the tint is lighter than the ground, so
+       quiet text still measures 5.94:1 on it. The role exists in both
+       bindings anyway, so a component never has to ask which one it is in. */
+    --text-quiet-tinted: var(--md-night-quiet);
+    --text-faint: #7c766d;
+    --text-inverse: var(--md-ink-900);
+    --text-on-accent: var(--md-ink-900);
+
+    --accent: var(--md-bronze-500);
+    --accent-text: var(--md-bronze-350);
+    --accent-label: var(--md-bronze-400);
+    --accent-solid: var(--md-bronze-400);
+
+    --line: rgba(239, 235, 226, 0.14);
+    --line-strong: rgba(239, 235, 226, 0.28);
+    --line-accent: rgba(203, 174, 133, 0.5);
+
+    --focus: var(--md-bronze-350);
+    --selection-bg: rgba(165, 132, 94, 0.35);
+    --selection-text: #fbf8f2;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--md-night-800);
+  --bg-raised: var(--md-night-700);
+  --bg-sunken: var(--md-night-900);
+  --bg-tint: var(--md-night-600);
+  --bg-accent-tint: rgba(165, 132, 94, 0.1);
+  --bg-inverse: var(--md-ink-050);
+
+  --text: var(--md-night-text);
+  --text-strong: #fbf8f2;
+  --text-quiet: var(--md-night-quiet);
+  --text-quiet-tinted: var(--md-night-quiet);
+  --text-faint: #7c766d;
+  --text-inverse: var(--md-ink-900);
+  --text-on-accent: var(--md-ink-900);
+
+  --accent: var(--md-bronze-500);
+  --accent-text: var(--md-bronze-350);
+  --accent-label: var(--md-bronze-400);
+  --accent-solid: var(--md-bronze-400);
+
+  --line: rgba(239, 235, 226, 0.14);
+  --line-strong: rgba(239, 235, 226, 0.28);
+  --line-accent: rgba(203, 174, 133, 0.5);
+
+  --focus: var(--md-bronze-350);
+  --selection-bg: rgba(165, 132, 94, 0.35);
+  --selection-text: #fbf8f2;
+
+  color-scheme: dark;
+}

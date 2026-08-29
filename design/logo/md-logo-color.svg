@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.18579235mm" height="25mm" viewBox="0 0 812 915" role="img" aria-label="MD monogram">
+  <g fill="#2C2C2C">
+    <!-- Slat 7 (Bottom Wedge Triangle) -->
+    <path d="M 408,618 L 348.9,665.3 L 408,764.0 Z"/>
+    <!-- Slat 6 -->
+    <path d="M 408,538 L 316.5,611.2 L 340.0,650.4 L 408,596 Z"/>
+    <!-- Slat 5 -->
+    <path d="M 408,458 L 284.1,557.2 L 307.5,596.4 L 408,516 Z"/>
+    <!-- Left Stem, Smooth Serifs & Thick Diagonal of M -->
+    <path d="M 0,321 L 0,331 C 35,331 56,352 56,378 L 56,854 C 56,882 35,906 13,906 L 0,906 L 0,915 L 158,915 L 158,906 L 145,906 C 123,906 93,882 93,854 L 93,416 L 392,903 L 408,873 L 408,800 L 121,321 Z"/>
+    <!-- Upper Left D-Frame & Integrated Slats (Slats 0 to 4) -->
+    <path d="M 408,0 L 260,111 L 260,517 L 275.1,542.3 L 408,436 L 408,378 L 281,479.6 L 281,462.0 L 408,356 L 408,298 L 281,399.6 L 281,382.0 L 408,276 L 408,218 L 281,319.6 L 281,302.0 L 408,196 L 408,138 L 281,239.6 L 281,222.0 L 408,116 Z"/>
+  </g>
+  <g fill="#A5845E">
+    <!-- Lower Right Vertical Spine -->
+    <path d="M 556,650 L 536,685 L 536,915 L 556,915 Z"/>
+    <!-- Right Stem, Smooth Serifs & Hairline Diagonal of M -->
+    <path d="M 812,322 L 698,322 L 407.5,830 L 407.5,873 L 677,412 L 677,854 C 677,882 647,906 623,906 L 623,915 L 812,915 L 812,906 C 788,906 754,882 754,854 L 754,375 C 754,352 788,330 812,330 Z"/>
+    <!-- Upper Right D-Frame -->
+    <path d="M 424,0 L 424,30 L 536,126 L 536,572 L 556,537 L 556,110 Z"/>
+  </g>
+</svg>

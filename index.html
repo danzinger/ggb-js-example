@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script type="text/javascript" src="./deployggb.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script type="text/javascript" src="./function-quiz.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--<title>&hearts;GeoGebra</title>-->
+        <title>Funktionsquiz | Danzinger</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Matthias Danzinger | Funktionsquiz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Funktionsquiz</a>
+                </li>
+                <!-- <li> -->
+                    <!-- <a class="nav-link" href="./random-stuff.html">Random Stuff</a> -->
+                <!-- </li> -->
+            </ul>
+        </div>
+    </nav>
+    <div style="height:20px;"></div>
+    <div class="container">
+        <div class="row">
+            <h3>Funktionsquiz
+                <span tabindex="0" data-trigger="focus" style="cursor:pointer;" id="popover-title" data-toggle="popover" title="Wilkommen im Funktionenquiz" data-content="Beim Klick auf den Button erscheint der Graph einer linearen Funktion. Erkenne die Funktionsgleichung und gib sie in das Feld ein. Brüche werden so eingegeben: 1/2 oder 3/4. Das Komma ist ein Punkt, kein Beistrich. Wenn du auf das Fragezeichen klickst, wird unter dem Graphen die richtige Lösung angezeigt.">
+                <i class="fas fa-info-circle"></i>
+            </span>
+            </h3>
+        </div>
+        <div class="row"> 
+            <form>
+                <input class="btn btn-primary mr-2 mb-2" value="Graph zeichnen" onclick="drawRandomFunction()" type="button">
+            </form>
+            <div id="checkform" style="display:none"> 
+                <form action="" onsubmit="checkRandomFunction(func.value);func.value='';return false;">
+                    <div class="input-group mr-2 mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">f(x) = </span>
+                        </div>
+                        <input type="text" name="func" class="form-control" placeholder="Antwort..." aria-describedby="basic-addon1">
+                        <button class="btn btn-primary" type="submit">Überprüfen</button>&nbsp;
+                        <!-- <span tabindex="0" data-trigger="focus" style="cursor:pointer;padding-top:4px;" id="popover-check" data-toggle="popover" title="Check if solution is correct" data-content="The user input is validated as follows: In principal it must exist and start with a number. It may also start with x or ( or - or + but must not start with ++ or -- or +- or -+. The solution is checked via the GeoGebra API, so things like (x^3/x^2)*3+3-1 and 3x+2 and 2+x*3 are equivalent. A modal lets the user know, if the solution was correct. Anything is possible from this point on. The results can be counted, written in a database and saved to a user account, sent to other APIs (Moodle,...) or anything else. "> -->
+                                <!-- <i class="fas fa-info-circle fa-2x"></i> -->
+                            <!-- </span> -->
+                            <span id="solbutton" style="cursor:pointer;">
+                            <i  class="fas fa-question-circle fa-2x"></i>
+                            </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div id="applet_container"></div>
+        </div>
+        <script>
+        $("#solbutton").click(function(){
+            $("#solution").toggle();
+        });
+        </script>
+        <div id="solution" class="row solution-hover" style="height:50px;display:none;flex-direction:row;align-items:center">
+            <span style="display:flex;" id="latex"></span>
+        </div>
+    </div>
+
+    <!-- correctModal -->
+    <div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Deine Antwort war...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h1 style="color:green;">KORREKT :-)</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- falseModal -->
+    <div class="modal fade" id="falseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Deine Antwort war..</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h1 style="color:red;">FALSCH :-(</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nochmals versuchen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /.container -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"><a href="https://matthiasdanzinger.eu">Matthias Danzinger</a></span>
+        </div>
+    </footer>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('#popover-title').popover({
+                container: 'body',
+                trigger: 'focus'
+            })
+        })
+        $(function() {
+            $('#popover-check').popover({
+                container: 'body',
+                trigger: 'focus'
+            })
+        })
+    </script>
+</body>
+
+</html>

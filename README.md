@@ -1,17 +1,24 @@
-### Introduction
+# Some experiments
 
-##### GeoGebra Script and limitations
+Small browser experiments in exact mathematics, visual reasoning and useful models. The repository began in 2019 as a demonstration of JavaScript talking to GeoGebra. The current version keeps that idea and makes the boundary between the page, the mathematics and the applet explicit.
 
-GeoGebra offers powerful ways to interact with its API via its own scripting language "GeoGebra Script". Many great learning materials were made using this technique. When things get a little more complex, however, the built-in editor lacks basic development tools like syntax highlighting, autocompletion, linting and basic debugging helpers.
+The function trainer generates only linear functions that can be read exactly from the displayed grid. Its parser accepts equivalent notation, identifies syntax errors before they reach GeoGebra, and can distinguish an incorrect slope from an incorrect intercept. A local SVG renderer is the reliable base; GeoGebra adds the full construction environment when it is available.
 
-The scripting language also lacks basic features like loops and conditionals or they are hard to implement.
+## Run
 
-##### GeoGebra and JavaScript
+Serve the directory over HTTP: `python3 -m http.server 8080`
 
-It is also possible to create more complex worksheets by using JavaScript to interact with the API. When written in the editor provided by GeoGebra, many of the above mentioned problems occur as well.
+Run the domain tests with Node.js 22 or newer: `npm test && npm run check`
 
-But it is also possible to communicate with the API using JavaScript when GeoGebra apps embed in an ordinary HTML page. This offers many interesting possibilities.
+There is no runtime package dependency and no build step. Modern evergreen browsers are supported. The HTML remains readable without JavaScript; the interactive elements progressively enhance it.
 
-*   First and foremost, it is possible to write the logic in a professional editor that provides the features that the built-in editor lacks. This greatly simplifies the development of resources.
-*   Secondly, many learning resources that require user input, lack basic input validation. This is hard to achieve, when developing within the app itself. When using the approach presented here, all user inputs can be done within the html and can easily be validated via JavaScript. Very often, if the applet is not used EXACTLY as intended by its creator, its functionality breaks. Depending on the context (Think of exams in GeoGebra), this might be a problem. For this, a more robust approach is needed.
-*   Last but not least this technique offers powerful ways of interaction between the DOM and GeoGebra. The DOM can be manipulated based on what is happening in the applet. Input fields, buttons and other DOM-Elements can be made visible only when they are needed. Because JavaScript is used to communicate with the Api many things get possible. We can communicate with databases to save results, or communicate with other apes like Moodle, or other things. Of course, JavaScript frameworks can be used for simplified DOM manipulation or extended features within JavaScript itself.
+## Structure
+
+- `js/math/` contains exact rational arithmetic, the readable-function bank and the input parser.
+- `js/components/` contains framework-free custom elements.
+- `test/` exhaustively checks the generator and representative parser cases.
+- `ggb/` retains the original construction files for historical examples.
+
+## Licensing
+
+Authored source code is available under the MIT License. GeoGebra is loaded as a separately licensed third-party service for the teaching experiment and is not covered by this repository's MIT License. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

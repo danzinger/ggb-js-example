@@ -1,0 +1,1 @@
+{"name":"some-experiments","version":"2.0.0","private":true,"type":"module","scripts":{"test":"node --test","check":"node --check js/app.js && node --check js/components/function-trainer.js && node --check js/components/labs.js"},"engines":{"node":">=22"}}

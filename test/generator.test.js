@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import{CANDIDATES,latticePoints,mulberry32,nextFunction,VIEW}from"../js/math/generator.js";
+test("every generated line is exactly readable",()=>{assert.ok(CANDIDATES.length>50);for(const fn of CANDIDATES){const points=latticePoints(fn);assert.ok(points.length>=2,fn.id);assert.ok(points.some(p=>p.x===0),fn.id);for(const p of points){assert.ok(p.x>VIEW.minX&&p.x<VIEW.maxX);assert.ok(p.y>VIEW.minY&&p.y<VIEW.maxY);}}});
+test("seeded generation repeats and avoids immediate duplicates",()=>{const a=mulberry32(2026),b=mulberry32(2026),first=nextFunction(a);assert.equal(first.id,nextFunction(b).id);assert.notEqual(nextFunction(()=>0,CANDIDATES[0].id).id,CANDIDATES[0].id);});
